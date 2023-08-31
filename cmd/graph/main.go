@@ -50,8 +50,8 @@ func (g *graph) writeGraphToFile(w http.ResponseWriter, _ *http.Request) {
 	line := charts.NewLine()
 	line.SetGlobalOptions(
 		charts.WithTitleOpts(opts.Title{
-			Title:    "Prix et volume des runes d'air",
-			Subtitle: "Graphique afin d'observer, ou non, la corrélation entre le prix et le volume pour les runes d'air à partir 03/03/2023 -> 29/08/2023",
+			Title:    "Price and volume for air rune",
+			Subtitle: "Graph to observe, or not, the correlation between price and volume for air runes from 03/03/2023 to 29/08/2023",
 		}),
 		charts.WithTooltipOpts(opts.Tooltip{
 			Trigger: "axis",
@@ -117,8 +117,8 @@ func main() {
 		prices: &data{},
 		volume: &data{},
 	}
-	g.fetchFile("data/price.csv", g.prices, -1, 1)
-	g.fetchFile("data/volume.csv", g.volume, -1, 1)
+	g.fetchFile("data/runescape/price.csv", g.prices, -1, 1)
+	g.fetchFile("data/runescape/volume.csv", g.volume, -1, 1)
 	log.Printf("MAE: %.4f", calculateMAE(g.prices, g.volume))
 	http.HandleFunc("/", g.writeGraphToFile)
 	http.ListenAndServe(":8081", nil)
